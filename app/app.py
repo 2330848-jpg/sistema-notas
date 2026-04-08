@@ -31,7 +31,7 @@ def crear():
         db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/eliminar/<int:id>')
+@app.route('/eliminar/<int:id>', methods=['POST'])
 def eliminar(id):
     nota = Nota.query.get_or_404(id)
     db.session.delete(nota)
