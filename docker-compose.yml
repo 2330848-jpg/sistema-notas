@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: notas_db
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  web:
+    build: ./app
+    ports:
+      - "5001:5000"
+    depends_on:
+      - db
+    environment:
+      SQLALCHEMY_DATABASE_URI: mysql+pymysql://usuario:password@db:3306/notas_db
+
+volumes:
+  db_data:

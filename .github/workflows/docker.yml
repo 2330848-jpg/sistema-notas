@@ -1,0 +1,19 @@
+name: CI/CD - Sistema de Notas
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Construir imagen Docker
+        run: docker build ./app -t sistema-notas-web
+
+      - name: Verificar imagen construida
+        run: docker images sistema-notas-web

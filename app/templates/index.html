@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Notas</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 30px; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0 15px; box-sizing: border-box; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .nota { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .eliminar { background: #f44336; color: white; padding: 5px 10px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>📝 Sistema de Notas</h1>
+    <form action="/crear" method="POST">
+        <input type="text" name="titulo" placeholder="Título de la nota" required>
+        <textarea name="contenido" rows="4" placeholder="Contenido de la nota" required></textarea>
+        <button type="submit">Agregar Nota</button>
+    </form>
+    {% for nota in notas %}
+    <div class="nota">
+        <h3>{{ nota.titulo }}</h3>
+        <p>{{ nota.contenido }}</p>
+        <small>{{ nota.fecha_creacion }}</small><br><br>
+        <form action="/eliminar/{{ nota.id }}" method="POST">
+            <button class="eliminar" type="submit">Eliminar</button>
+        </form>
+    </div>
+    {% else %}
+    <p>No hay notas aún.</p>
+    {% endfor %}
+</body>
+</html>
